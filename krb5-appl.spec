@@ -10,7 +10,7 @@
 Summary: Kerberos-aware versions of telnet, ftp, rsh, and rlogin
 Name: krb5-appl
 Version: 1.0.1
-Release: 2%{?dist}.1
+Release: 5%{?dist}
 # Maybe we should explode from the now-available-to-everybody tarball instead?
 # http://web.mit.edu/kerberos/dist/krb5-appl/1.0/krb5-appl-1.0.1-signed.tar
 Source0: krb5-appl-%{version}.tar.gz
@@ -47,6 +47,8 @@ Patch88: krb5-1.7-sizeof.patch
 Patch89: krb5-appl-1.0.1-largefile.patch
 Patch90: krb5-appl-1.0.1-nmax-is-ut_namesize.patch
 Patch91: krb5-appl-1.0.1-2011-005.patch
+Patch92: krb5-appl-1.0.1-buffer.patch
+Patch93: krb5-appl-trunk-ftpusers.patch
 
 License: MIT
 URL: http://web.mit.edu/kerberos/www/
@@ -106,6 +108,8 @@ ln -s NOTICE LICENSE
 %patch88 -p3 -b .sizeof
 %patch89 -p1 -b .largefile
 %patch90 -p1 -b .nmax-is-ut_namesize
+%patch92 -p1 -b .buffer
+%patch93 -p0 -b .ftpusers
 
 # Rename the man pages so that they'll get generated correctly.  Uses the
 # "krb5-appl-1.0-manpaths.txt" source file.
@@ -255,9 +259,23 @@ exit 0
 %{krb5prefix}/man/man8/telnetd.8*
 
 %changelog
+* Fri Sep 16 2011 Nalin Dahyabhai <nalin@redhat.com> - 1.0.1-5
+- unbreak processing of multi-line macros (#736364), broken by the original
+  fix for #665384
+
+* Tue Jul  5 2011 Nalin Dahyabhai <nalin@redhat.com> - 1.0.1-4
+- increase the size of the ftp client's command line input buffer (#665834)
+- incorporate patch to correct parsing errors with "restrict" lines in
+  ftpusers (#713521, RT#6889)
+
+* Mon Jun 20 2011 Nalin Dahyabhai <nalin@redhat.com> - 1.0.1-3
+- drop calls to pam_selinux from the gssftp PAM configuration (#713459)
+- reference password-auth instead of system-auth in the gssftp and kshell
+  PAM configurations
+
 * Wed Jun 15 2011 Nalin Dahyabhai <nalin@redhat.com> - 1.0.1-2.1
 - ftpd: add candidate patch to detect setegid/setregid/setresgid and check
-  for errors when calling them (MITKRB5-SA-2011-005, CVE-2011-1526, #713341)
+  for errors when calling them (MITKRB5-SA-2011-005, CVE-2011-1526, #713342)
 
 * Tue Jan 25 2011 Nalin Dahyabhai <nalin@redhat.com> - 1.0.1-2
 - krshd: don't limit user names to 16 chars when utmp can handle names

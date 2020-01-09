@@ -1,0 +1,286 @@
+Replace static buffers and fgets() with dynamic buffers and a knockoff of
+getline().  Leave the limit on the number of arguments in place, and make
+a guess that macro expansion won't require more than 500 chars beyond the
+length of the macro definition and the current command.  For #665833.
+
+diff -up krb5-appl-1.0.1/gssftp/ftp/cmds.c krb5-appl-1.0.1/gssftp/ftp/cmds.c
+--- krb5-appl-1.0.1/gssftp/ftp/cmds.c	2011-04-27 12:31:52.666639442 -0400
++++ krb5-appl-1.0.1/gssftp/ftp/cmds.c	2011-04-27 12:31:52.699639442 -0400
+@@ -172,21 +172,28 @@ another(pargc, pargv, prompt)
+ 	char ***pargv;
+ 	char *prompt;
+ {
+-	size_t len = strlen(line);
++	ssize_t len;
++	size_t tmp_len;
++	char *tmp, *merged;
+ 	int ret;
+ 	extern sig_t intr();
+ 
+-	if (len >= sizeof(line) - 3) {
+-		printf("sorry, arguments too long\n");
+-		intr();
+-	}
+ 	printf("(%s) ", prompt);
+-	line[len++] = ' ';
+-	if (fgets(&line[len], (signed) sizeof(line) - len, stdin) == NULL)
++	tmp = NULL;
++	if ((len = getinput(&tmp, &tmp_len, stdin)) == -1)
++		intr();
++	if ((len > 0) && (tmp[len - 1] == '\n'))
++		tmp[len - 1] = '\0';
++	merged = malloc(line_len + len + 1);
++	if (merged == NULL)
+ 		intr();
+-	len += strlen(&line[len]);
+-	if (len > 0 && line[len - 1] == '\n')
+-		line[len - 1] = '\0';
++	strcpy(merged, line);
++	strcat(merged, " ");
++	strcat(merged, tmp);
++	free(line);
++	free(tmp);
++	line_len += len + 1;
++	line = merged;
+ 	makeargv();
+ 	ret = margc > *pargc;
+ 	*pargc = margc;
+diff -up krb5-appl-1.0.1/gssftp/ftp/domacro.c krb5-appl-1.0.1/gssftp/ftp/domacro.c
+--- krb5-appl-1.0.1/gssftp/ftp/domacro.c	2009-11-05 15:15:06.000000000 -0500
++++ krb5-appl-1.0.1/gssftp/ftp/domacro.c	2011-04-27 12:31:52.700639442 -0400
+@@ -39,6 +39,7 @@ static char sccsid[] = "@(#)domacro.c	1.
+ 
+ #include <stdio.h>
+ #include <signal.h>
++#include <stdlib.h>
+ 
+ #include "ftp_var.h"
+ 
+@@ -53,7 +54,8 @@ void domacro(argc, argv)
+ 	register int i, j;
+ 	register char *cp1, *cp2;
+ 	int count = 2, loopflg = 0;
+-	char line2[200];
++	char *saved;
++	size_t saved_len;
+ 	extern char **glob();
+ 	struct cmd *getcmd(), *c;
+ 
+@@ -72,8 +74,18 @@ void domacro(argc, argv)
+ 		code = -1;
+ 		return;
+ 	}
+-	(void) strncpy(line2, line, sizeof(line2) - 1);
+-	line2[sizeof(line2) - 1] = '\0';
++	saved_len = line_len;
++	saved = line;
++	line_len += (macros[i].mac_end - macros[i].mac_start + 500);
++	line = malloc(line_len);
++	if (line == NULL) {
++		printf("'%s': out of memory.\n", argv[1]);
++		line_len = saved_len;
++		line = saved;
++		code = -1;
++		return;
++	}
++	memcpy(line, saved, saved_len);
+ TOP:
+ 	cp1 = macros[i].mac_start;
+ 	while (cp1 != macros[i].mac_end) {
+@@ -94,11 +105,11 @@ TOP:
+ 				    }
+ 				    cp1--;
+ 				    if (argc - 2 >= j) {
+-                                        if(cp2 - line + strlen(argv[j+1]) < sizeof(line))
++                                        if(cp2 - line + strlen(argv[j+1]) < line_len)
+ 					(void) strncpy(cp2, argv[j+1],
+-						       sizeof(line) - 1 -
++						       line_len - 1 -
+ 						       (cp2 - line));
+-					line[sizeof(line) - 1] = '\0';
++					line[line_len - 1] = '\0';
+ 					cp2 += strlen(argv[j+1]);
+ 				    }
+ 				    break;
+@@ -107,11 +118,11 @@ TOP:
+ 					loopflg = 1;
+ 					cp1++;
+ 					if (count < argc) {
+-                                           if(cp2 - line + strlen(argv[count]) < sizeof(line))
++                                           if(cp2 - line + strlen(argv[count]) < line_len)
+ 					   (void) strncpy(cp2, argv[count],
+-							  sizeof(line) - 1 -
++							  line_len - 1 -
+ 							  (cp2 - line));
+-					   line[sizeof(line) - 1] = '\0';
++					   line[line_len - 1] = '\0';
+ 					   cp2 += strlen(argv[count]);
+ 					}
+ 					break;
+@@ -148,8 +160,7 @@
+ 			if (bell && c->c_bell) {
+ 				(void) putchar('\007');
+ 			}
+-			(void) strncpy(line, line2, sizeof(line) - 1);
+-			line[sizeof(line) - 1] = '\0';
++			memcpy(line, saved, saved_len);
+ 			makeargv();
+ 			argc = margc;
+ 			argv = margv;
+@@ -161,4 +172,8 @@
+ 	if (loopflg && ++count < argc) {
+ 		goto TOP;
+ 	}
++	free(line);
++	line_len = saved_len;
++	line = saved;
++	makeargv();
+ }
+diff -up krb5-appl-1.0.1/gssftp/ftp/ftp.c krb5-appl-1.0.1/gssftp/ftp/ftp.c
+--- krb5-appl-1.0.1/gssftp/ftp/ftp.c	2011-04-27 12:31:52.684639442 -0400
++++ krb5-appl-1.0.1/gssftp/ftp/ftp.c	2011-04-27 12:31:52.702639442 -0400
+@@ -331,6 +331,7 @@
+ 	char tmp[80];
+ 	char *l_user, *pass, *l_acct, *getenv(), *getlogin();
+ 	int n, aflag = 0;
++	extern sig_t intr();
+ 
+ 	l_user = pass = l_acct = 0;
+ 	if (ruserpass(host, &l_user, &pass, &l_acct) < 0) {
+@@ -417,7 +418,11 @@ int login(char *host)
+ 		return(1);
+ 	for (n = 0; n < macnum; ++n) {
+ 		if (!strcmp("init", macros[n].mac_name)) {
+-			(void) strlcpy(line, "$init", sizeof(line));
++			free(line);
++			line = strdup("$init");
++			if (line == NULL)
++				intr();
++			line_len = strlen(line) + 1;
+ 			makeargv();
+ 			domacro(margc, margv);
+ 			break;
+diff -up krb5-appl-1.0.1/gssftp/ftp/ftp_var.h krb5-appl-1.0.1/gssftp/ftp/ftp_var.h
+--- krb5-appl-1.0.1/gssftp/ftp/ftp_var.h	2011-04-27 12:31:52.685639442 -0400
++++ krb5-appl-1.0.1/gssftp/ftp/ftp_var.h	2011-04-27 12:31:52.704639442 -0400
+@@ -138,9 +138,10 @@ extern struct	servent *sp;	/* service sp
+ #include <setjmp.h>
+ extern jmp_buf	toplevel;	/* non-local goto stuff for cmd scanner */
+ 
+-extern char	line[500];	/* input line buffer */
++extern char	*line;		/* input line buffer */
++extern size_t	line_len;	/* space allocated for input line buffer */
+ extern char	*stringbase;	/* current scan point in line buffer */
+-extern char	argbuf[500];	/* argument storage buffer */
++extern char	*argbuf;	/* argument storage buffer */
+ extern char	*argbase;	/* current storage point in arg buffer */
+ extern int	margc;		/* count of arguments on input line */
+ extern char	*margv[20];	/* args parsed from input line */
+@@ -279,6 +280,7 @@ void domacro (int, char **);
+ /* main.c */
+ void help (int, char **);
+ struct cmd *getcmd (char *);
++ssize_t getinput(char **, size_t *, FILE *);
+ 
+ 
+ /* ruserpass.c */
+diff -up krb5-appl-1.0.1/gssftp/ftp/main.c krb5-appl-1.0.1/gssftp/ftp/main.c
+--- krb5-appl-1.0.1/gssftp/ftp/main.c	2011-04-27 12:31:52.614639442 -0400
++++ krb5-appl-1.0.1/gssftp/ftp/main.c	2011-04-27 12:31:52.705639442 -0400
+@@ -126,6 +126,8 @@ main(argc, argv)
+ 	autologin = 1;
+ 	forward = 0;
+ 	autoencrypt = 0;
++	line = NULL;
++	line_len = 0;
+ 	argc--, argv++;
+ 	while (argc > 0 && **argv == '-') {
+ 		for (cp = *argv + 1; *cp; cp++) {
+@@ -307,7 +309,7 @@ cmdscanner(top)
+ 	int top;
+ {
+ 	register struct cmd *c;
+-	register int l;
++	register ssize_t l;
+ 
+ 	if (!top)
+ 		(void) putchar('\n');
+@@ -316,20 +318,14 @@ cmdscanner(top)
+ 			printf("ftp> ");
+ 			(void) fflush(stdout);
+ 		}
+-		if (fgets(line, sizeof line, stdin) == NULL)
++		if ((l = getinput(&line, &line_len, stdin)) == -1)
+ 			quit();
+-		l = strlen(line);
+ 		if (l == 0)
+ 			break;
+ 		if (line[--l] == '\n') {
+ 			if (l == 0)
+ 				break;
+ 			line[l] = '\0';
+-		} else if (l == sizeof(line) - 2) {
+-			printf("sorry, input line too long\n");
+-			while ((l = getchar()) != '\n' && l != EOF)
+-				/* void */;
+-			break;
+ 		} /* else it was a line without a newline */
+ 		makeargv();
+ 		if (margc == 0) {
+@@ -403,6 +399,12 @@ void makeargv()
+ 	margc = 0;
+ 	argp = margv;
+ 	stringbase = line;		/* scan from first of buffer */
++	free(argbuf);
++	argbuf = malloc(line_len);
++	if (argbuf == NULL) {
++		printf("out of memory\n");
++		intr(SIGINT);
++	}
+ 	argbase = argbuf;		/* store from first of buffer */
+ 	slrflag = 0;
+ 	while ((*argp++ = slurpstring())) {
+@@ -607,3 +609,43 @@ void help(argc, argv)
+ 				c->c_name, c->c_help);
+ 	}
+ }
++
++ssize_t getinput(lineptr, n, stream)
++	char **lineptr;
++	size_t *n;
++	FILE *stream;
++{
++	char buf[200], *tmp;
++	ssize_t len;
++	size_t blen;
++	if ((lineptr == NULL) || (n == NULL)) {
++		errno = EINVAL;
++		return -1;
++	}
++	len = 0;
++	while ((tmp = fgets(buf, sizeof(buf), stream)) != NULL) {
++		blen = strlen(buf);
++		if ((*lineptr != NULL) && (len + blen < *n)) {
++			strcpy(*lineptr + len, buf);
++			len += blen;
++		} else {
++			tmp = realloc(*lineptr, len + blen + 120);
++			if (tmp != NULL) {
++				*lineptr = tmp;
++				*n = len + blen + 120;
++				strcpy(*lineptr + len, buf);
++				len += blen;
++			} else {
++				errno = ENOMEM;
++				break;
++			}
++		}
++		if ((len > 0) && ((*lineptr)[len - 1] == '\n')) {
++			break;
++		}
++	}
++	if (tmp == NULL) {
++		return -1;
++	}
++	return len;
++}
