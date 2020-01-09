@@ -10,7 +10,7 @@
 Summary: Kerberos-aware versions of telnet, ftp, rsh, and rlogin
 Name: krb5-appl
 Version: 1.0.1
-Release: 2%{?dist}
+Release: 2%{?dist}.1
 # Maybe we should explode from the now-available-to-everybody tarball instead?
 # http://web.mit.edu/kerberos/dist/krb5-appl/1.0/krb5-appl-1.0.1-signed.tar
 Source0: krb5-appl-%{version}.tar.gz
@@ -46,6 +46,7 @@ Patch79: krb5-trunk-ftp_mget_case.patch
 Patch88: krb5-1.7-sizeof.patch
 Patch89: krb5-appl-1.0.1-largefile.patch
 Patch90: krb5-appl-1.0.1-nmax-is-ut_namesize.patch
+Patch91: krb5-appl-1.0.1-2011-005.patch
 
 License: MIT
 URL: http://web.mit.edu/kerberos/www/
@@ -88,6 +89,7 @@ in most environments, they remain in use in others.
 %setup -q
 ln -s NOTICE LICENSE
 
+%patch91 -p1 -b .2011-005
 %patch160 -p1 -b .pam
 %patch161 -p1 -b .manpaths
 %patch3  -p3 -b .netkit-rsh
@@ -253,6 +255,10 @@ exit 0
 %{krb5prefix}/man/man8/telnetd.8*
 
 %changelog
+* Wed Jun 15 2011 Nalin Dahyabhai <nalin@redhat.com> - 1.0.1-2.1
+- ftpd: add candidate patch to detect setegid/setregid/setresgid and check
+  for errors when calling them (MITKRB5-SA-2011-005, CVE-2011-1526, #713341)
+
 * Tue Jan 25 2011 Nalin Dahyabhai <nalin@redhat.com> - 1.0.1-2
 - krshd: don't limit user names to 16 chars when utmp can handle names
   at least a bit longer than that (#632442, RT#6773)

@@ -1012,8 +1012,8 @@ diff -up krb5-appl-1.0/gssftp/ftpd/ftpd.c.pam krb5-appl-1.0/gssftp/ftpd/ftpd.c
 +	}
 +#endif
  
- 	(void) krb5_setegid((gid_t)pw->pw_gid);
- 	(void) initgroups(pw->pw_name, pw->pw_gid);
+ 	if (krb5_setegid((gid_t)pw->pw_gid) < 0) {
+ 		reply(550, "Can't set egid.");
 @@ -1966,6 +2028,10 @@ dologout(status)
  		krb5_cc_destroy(kcontext, ccache);
  #endif
