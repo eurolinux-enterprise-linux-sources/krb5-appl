@@ -1,0 +1,527 @@
+/* autoconf.h.in.  Generated from configure.ac by autoheader.  */
+
+/* Define if getpgrp takes one arg */
+#undef GETPGRP_ONEARG
+
+/* Type of pointer target for argument 2 to getsockname */
+#undef GETSOCKNAME_ARG2_TYPE
+
+/* Type of pointer target for argument 3 to getsockname */
+#undef GETSOCKNAME_ARG3_TYPE
+
+/* Define to 1 if you have the <arpa/inet.h> header file. */
+#undef HAVE_ARPA_INET_H
+
+/* Define to 1 if you have the <arpa/nameser.h> header file. */
+#undef HAVE_ARPA_NAMESER_H
+
+/* Define to 1 if you have the `asprintf' function. */
+#undef HAVE_ASPRINTF
+
+/* Define to 1 if you have the `cgetent' function. */
+#undef HAVE_CGETENT
+
+/* Define to 1 if you have the <curses.h> header file. */
+#undef HAVE_CURSES_H
+
+/* Define to 1 if you have the `daemon' function. */
+#undef HAVE_DAEMON
+
+/* Define to 1 if you have the `fork' function. */
+#undef HAVE_FORK
+
+/* Define if you have the getaddrinfo function */
+#undef HAVE_GETADDRINFO
+
+/* Define to 1 if you have the `getcwd' function. */
+#undef HAVE_GETCWD
+
+/* Define to 1 if you have the `getdtablesize' function. */
+#undef HAVE_GETDTABLESIZE
+
+/* Define to 1 if you have the `getenv' function. */
+#undef HAVE_GETENV
+
+/* Define to 1 if you have the `getnameinfo' function. */
+#undef HAVE_GETNAMEINFO
+
+/* Define to 1 if you have the `getopt' function. */
+#undef HAVE_GETOPT
+
+/* Define to 1 if you have the `gettosbyname' function. */
+#undef HAVE_GETTOSBYNAME
+
+/* Define to 1 if you have the `getusershell' function. */
+#undef HAVE_GETUSERSHELL
+
+/* Define to 1 if you have the `getutmp' function. */
+#undef HAVE_GETUTMP
+
+/* Define to 1 if you have the `getutmpx' function. */
+#undef HAVE_GETUTMPX
+
+/* Define to 1 if you have the `grantpt' function. */
+#undef HAVE_GRANTPT
+
+/* Define to 1 if you have the `herror' function. */
+#undef HAVE_HERROR
+
+/* Define to 1 if you have the `inet_aton' function. */
+#undef HAVE_INET_ATON
+
+/* Define to 1 if you have the `inet_ntop' function. */
+#undef HAVE_INET_NTOP
+
+/* Define to 1 if you have the `inet_pton' function. */
+#undef HAVE_INET_PTON
+
+/* Define to 1 if you have the `initgroups' function. */
+#undef HAVE_INITGROUPS
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define to 1 if you have the `isatty' function. */
+#undef HAVE_ISATTY
+
+/* Define to 1 if you have the `killpg' function. */
+#undef HAVE_KILLPG
+
+/* Define to 1 if you have the <lastlog.h> header file. */
+#undef HAVE_LASTLOG_H
+
+/* Define if util library is available with openpty, logwtmp, etc */
+#undef HAVE_LIBUTIL
+
+/* Define to 1 if you have the <libutil.h> header file. */
+#undef HAVE_LIBUTIL_H
+
+/* Define to 1 if you have the `line_push' function. */
+#undef HAVE_LINE_PUSH
+
+/* Define to 1 if you have the `logwtmp' function. */
+#undef HAVE_LOGWTMP
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define to 1 if you have the <netdb.h> header file. */
+#undef HAVE_NETDB_H
+
+/* Define to 1 if you have the <netinet/in.h> header file. */
+#undef HAVE_NETINET_IN_H
+
+/* Define to 1 if you have the `openpty' function. */
+#undef HAVE_OPENPTY
+
+/* Define to 1 if you have the `parsetos' function. */
+#undef HAVE_PARSETOS
+
+/* Define to 1 if you have the <paths.h> header file. */
+#undef HAVE_PATHS_H
+
+/* Define to 1 if you have the `ptsname' function. */
+#undef HAVE_PTSNAME
+
+/* Define to 1 if you have the <pty.h> header file. */
+#undef HAVE_PTY_H
+
+/* Define to 1 if you have the `revoke' function. */
+#undef HAVE_REVOKE
+
+/* Define to 1 if you have the `rmufile' function. */
+#undef HAVE_RMUFILE
+
+/* Define to 1 if you have the `rresvport_af' function. */
+#undef HAVE_RRESVPORT_AF
+
+/* Define to 1 if you have the <sac.h> header file. */
+#undef HAVE_SAC_H
+
+/* Define if struct sockaddr contains sa_len */
+#undef HAVE_SA_LEN
+
+/* Define to 1 if you have the `setenv' function. */
+#undef HAVE_SETENV
+
+/* Define to 1 if you have the `seteuid' function. */
+#undef HAVE_SETEUID
+
+/* Define to 1 if you have the `setlogin' function. */
+#undef HAVE_SETLOGIN
+
+/* Define if setluid is supplied by the OSF/1 security library */
+#undef HAVE_SETLUID
+
+/* Define if F_SETOWN is available */
+#undef HAVE_SETOWN
+
+/* Define to 1 if you have the `setpgid' function. */
+#undef HAVE_SETPGID
+
+/* Define to 1 if you have the `setpriority' function. */
+#undef HAVE_SETPRIORITY
+
+/* Define to 1 if you have the `setresuid' function. */
+#undef HAVE_SETRESUID
+
+/* Define to 1 if you have the `setreuid' function. */
+#undef HAVE_SETREUID
+
+/* Define to 1 if you have the `setsid' function. */
+#undef HAVE_SETSID
+
+/* Define to 1 if you have the `setupterm' function. */
+#undef HAVE_SETUPTERM
+
+/* Define to 1 if you have the `setutent' function. */
+#undef HAVE_SETUTENT
+
+/* Define to 1 if you have the `setutsent' function. */
+#undef HAVE_SETUTSENT
+
+/* Define to 1 if you have the `setutxent' function. */
+#undef HAVE_SETUTXENT
+
+/* Define if shadow password interface is available */
+#undef HAVE_SHADOW
+
+/* Define to 1 if the system has the type `socklen_t'. */
+#undef HAVE_SOCKLEN_T
+
+/* Define if stdarg available and compiles */
+#undef HAVE_STDARG_H
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the `strcasecmp' function. */
+#undef HAVE_STRCASECMP
+
+/* Define to 1 if you have the `strdup' function. */
+#undef HAVE_STRDUP
+
+/* Define if have streams */
+#undef HAVE_STREAMS
+
+/* Define to 1 if you have the `strerror' function. */
+#undef HAVE_STRERROR
+
+/* Define to 1 if you have the `strftime' function. */
+#undef HAVE_STRFTIME
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the `strlcpy' function. */
+#undef HAVE_STRLCPY
+
+/* Define to 1 if you have the `strsave' function. */
+#undef HAVE_STRSAVE
+
+/* Define to 1 if the system has the type `struct sockaddr_storage'. */
+#undef HAVE_STRUCT_SOCKADDR_STORAGE
+
+/* Define to 1 if `ut_addr' is member of `struct utmpx'. */
+#undef HAVE_STRUCT_UTMPX_UT_ADDR
+
+/* Define to 1 if `ut_exit' is member of `struct utmpx'. */
+#undef HAVE_STRUCT_UTMPX_UT_EXIT
+
+/* Define to 1 if `ut_host' is member of `struct utmpx'. */
+#undef HAVE_STRUCT_UTMPX_UT_HOST
+
+/* Define to 1 if `ut_id' is member of `struct utmpx'. */
+#undef HAVE_STRUCT_UTMPX_UT_ID
+
+/* Define to 1 if `ut_pid' is member of `struct utmpx'. */
+#undef HAVE_STRUCT_UTMPX_UT_PID
+
+/* Define to 1 if `ut_syslen' is member of `struct utmpx'. */
+#undef HAVE_STRUCT_UTMPX_UT_SYSLEN
+
+/* Define to 1 if `ut_type' is member of `struct utmpx'. */
+#undef HAVE_STRUCT_UTMPX_UT_TYPE
+
+/* Define to 1 if `ut_addr' is member of `struct utmp'. */
+#undef HAVE_STRUCT_UTMP_UT_ADDR
+
+/* Define to 1 if `ut_exit' is member of `struct utmp'. */
+#undef HAVE_STRUCT_UTMP_UT_EXIT
+
+/* Define to 1 if `ut_host' is member of `struct utmp'. */
+#undef HAVE_STRUCT_UTMP_UT_HOST
+
+/* Define to 1 if `ut_id' is member of `struct utmp'. */
+#undef HAVE_STRUCT_UTMP_UT_ID
+
+/* Define to 1 if `ut_pid' is member of `struct utmp'. */
+#undef HAVE_STRUCT_UTMP_UT_PID
+
+/* Define to 1 if `ut_syslen' is member of `struct utmp'. */
+#undef HAVE_STRUCT_UTMP_UT_SYSLEN
+
+/* Define to 1 if `ut_type' is member of `struct utmp'. */
+#undef HAVE_STRUCT_UTMP_UT_TYPE
+
+/* Define if sys_errlist in libc */
+#undef HAVE_SYS_ERRLIST
+
+/* Define to 1 if you have the <sys/filio.h> header file. */
+#undef HAVE_SYS_FILIO_H
+
+/* Define to 1 if you have the <sys/ioctl_compat.h> header file. */
+#undef HAVE_SYS_IOCTL_COMPAT_H
+
+/* Define to 1 if you have the <sys/label.h> header file. */
+#undef HAVE_SYS_LABEL_H
+
+/* Define to 1 if you have the <sys/param.h> header file. */
+#undef HAVE_SYS_PARAM_H
+
+/* Define to 1 if you have the <sys/ptyvar.h> header file. */
+#undef HAVE_SYS_PTYVAR_H
+
+/* Define to 1 if you have the <sys/select.h> header file. */
+#undef HAVE_SYS_SELECT_H
+
+/* Define to 1 if you have the <sys/socket.h> header file. */
+#undef HAVE_SYS_SOCKET_H
+
+/* Define to 1 if you have the <sys/sockio.h> header file. */
+#undef HAVE_SYS_SOCKIO_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/stream.h> header file. */
+#undef HAVE_SYS_STREAM_H
+
+/* Define to 1 if you have the <sys/time.h> header file. */
+#undef HAVE_SYS_TIME_H
+
+/* Define to 1 if you have the <sys/tty.h> header file. */
+#undef HAVE_SYS_TTY_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <sys/uio.h> header file. */
+#undef HAVE_SYS_UIO_H
+
+/* Define to 1 if you have the <sys/utsname.h> header file. */
+#undef HAVE_SYS_UTSNAME_H
+
+/* Define to 1 if you have the <sys/wait.h> header file. */
+#undef HAVE_SYS_WAIT_H
+
+/* Define to 1 if you have the `tcgetpgrp' function. */
+#undef HAVE_TCGETPGRP
+
+/* Define to 1 if you have the `tcsetpgrp' function. */
+#undef HAVE_TCSETPGRP
+
+/* Define to 1 if you have the <term.h> header file. */
+#undef HAVE_TERM_H
+
+/* Define to 1 if you have the <ttyent.h> header file. */
+#undef HAVE_TTYENT_H
+
+/* Define to 1 if you have the `ttyname' function. */
+#undef HAVE_TTYNAME
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define to 1 if you have the `unsetenv' function. */
+#undef HAVE_UNSETENV
+
+/* Define to 1 if you have the `updwtmp' function. */
+#undef HAVE_UPDWTMP
+
+/* Define to 1 if you have the `updwtmpx' function. */
+#undef HAVE_UPDWTMPX
+
+/* Define to 1 if you have the <util.h> header file. */
+#undef HAVE_UTIL_H
+
+/* Define to 1 if you have the `utimes' function. */
+#undef HAVE_UTIMES
+
+/* Define to 1 if you have the `utmpname' function. */
+#undef HAVE_UTMPNAME
+
+/* Define to 1 if you have the `utmpxname' function. */
+#undef HAVE_UTMPXNAME
+
+/* Define to 1 if you have the <utmpx.h> header file. */
+#undef HAVE_UTMPX_H
+
+/* Define to 1 if you have the <utmp.h> header file. */
+#undef HAVE_UTMP_H
+
+/* Define if varargs available and compiles */
+#undef HAVE_VARARGS_H
+
+/* Define to 1 if you have the `vfork' function. */
+#undef HAVE_VFORK
+
+/* Define to 1 if you have the <vfork.h> header file. */
+#undef HAVE_VFORK_H
+
+/* Define to 1 if you have the `vhangup' function. */
+#undef HAVE_VHANGUP
+
+/* Define to 1 if you have the `vsnprintf' function. */
+#undef HAVE_VSNPRINTF
+
+/* Define to 1 if you have the `waitpid' function. */
+#undef HAVE_WAITPID
+
+/* Define to 1 if `fork' works. */
+#undef HAVE_WORKING_FORK
+
+/* Define to 1 if `vfork' works. */
+#undef HAVE_WORKING_VFORK
+
+/* Define to 1 if you have the file `AC_File'. */
+#undef HAVE__ETC_ENVIRONMENT
+
+/* Define to 1 if you have the file `AC_File'. */
+#undef HAVE__ETC_TIMEZONE
+
+/* Define to 1 if you have the `_getpty' function. */
+#undef HAVE__GETPTY
+
+/* May need to be defined to enable IPv6 support, for example on IRIX */
+#undef INET6
+
+/* Define if we should compile in IPv6 support (even if we can't use it at run
+   time) */
+#undef KRB5_USE_INET6
+
+/* Define if need to declare sys_errlist */
+#undef NEED_SYS_ERRLIST
+
+/* Define if termio.h does not define type cc_t */
+#undef NO_CC_T
+
+/* Define on Ultrix where an initial vhangup breaks */
+#undef OPEN_CTTY_ONLY_ONCE
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* Define if setjmp indicates POSIX interface */
+#undef POSIX_SETJMP
+
+/* Define if POSIX signal handling is used */
+#undef POSIX_SIGNALS
+
+/* Define if POSIX signal handlers are used */
+#undef POSIX_SIGTYPE
+
+/* Define for POSIX termios interface */
+#undef POSIX_TERMIOS
+
+/* Define to utmpx exit field name */
+#undef PTY_UTMPX_E_EXIT
+
+/* Define to utmpx termination field name */
+#undef PTY_UTMPX_E_TERMINATION
+
+/* Define to utmp exit field name */
+#undef PTY_UTMP_E_EXIT
+
+/* Define to utmp termination field name */
+#undef PTY_UTMP_E_TERMINATION
+
+/* push ldterm? */
+#undef PUSH_LDTERM
+
+/* push ptem? */
+#undef PUSH_PTEM
+
+/* push ttcompat? */
+#undef PUSH_TTCOMPAT
+
+/* Define as the return type of signal handlers (`int' or `void'). */
+#undef RETSIGTYPE
+
+/* Define if ctty needs to be opened before revoke as on OSF/1 */
+#undef REVOKE_NEEDS_OPEN
+
+/* Define if setpag should be used */
+#undef SETPAG
+
+/* Define if setpgrp takes two arguments */
+#undef SETPGRP_TWOARG
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Define if streams pty interface should be used */
+#undef STREAMSPTY
+
+/* Define if SysV termio interface is found */
+#undef SYSV_TERMIO
+
+/* Define if sys_errlist is defined in errno.h */
+#undef SYS_ERRLIST_DECLARED
+
+/* Define if termcap library is available */
+#undef TERMCAP
+
+/* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
+#undef TIME_WITH_SYS_TIME
+
+/* Define if you have dirent.h functionality */
+#undef USE_DIRENT_H
+
+/* Define if sigprocmask should be used */
+#undef USE_SIGPROCMASK
+
+/* Define if termio should be used */
+#undef USE_TERMIO
+
+/* Define if wait takes int as a argument */
+#undef WAIT_USES_INT
+
+/* Enable extended glibc prototypes */
+#undef _GNU_SOURCE
+
+/* Define to empty if `const' does not conform to ANSI C. */
+#undef const
+
+/* Define krb5_sigtype to type of signal handler */
+#undef krb5_sigtype
+
+/* Define to `int' if <sys/types.h> does not define. */
+#undef mode_t
+
+/* Define to `int' if <sys/types.h> does not define. */
+#undef pid_t
+
+/* Define if system termios interface doesn't define speed_t */
+#undef speed_t
+
+/* Define as `fork' if `vfork' does not work. */
+#undef vfork
